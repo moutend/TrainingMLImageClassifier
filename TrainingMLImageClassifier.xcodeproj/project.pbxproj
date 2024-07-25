@@ -10,6 +10,9 @@
 		BA0A9CF82C5236510046E4A3 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A9CF72C5236510046E4A3 /* App.swift */; };
 		BA0A9CFC2C5236520046E4A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA0A9CFB2C5236520046E4A3 /* Assets.xcassets */; };
 		BA0A9CFF2C5236520046E4A3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA0A9CFE2C5236520046E4A3 /* Preview Assets.xcassets */; };
+		BA4AA1FF2C524FD1002800C4 /* README_ja.md in Resources */ = {isa = PBXBuildFile; fileRef = BA4AA1FC2C524FD1002800C4 /* README_ja.md */; };
+		BA4AA2002C524FD1002800C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BA4AA1FD2C524FD1002800C4 /* README.md */; };
+		BA4AA2012C524FD1002800C4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = BA4AA1FE2C524FD1002800C4 /* LICENSE */; };
 		BAA0C2342C5239B600AC467F /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2332C5239B600AC467F /* CIImageExtension.swift */; };
 		BAA0C2362C523A2C00AC467F /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2352C523A2C00AC467F /* AppConstants.swift */; };
 		BAA0C2382C523ACD00AC467F /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2372C523ACD00AC467F /* CameraManager.swift */; };
@@ -30,6 +33,9 @@
 		BA0A9CF72C5236510046E4A3 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		BA0A9CFB2C5236520046E4A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA0A9CFE2C5236520046E4A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA4AA1FC2C524FD1002800C4 /* README_ja.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README_ja.md; sourceTree = "<group>"; };
+		BA4AA1FD2C524FD1002800C4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BA4AA1FE2C524FD1002800C4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BAA0C2332C5239B600AC467F /* CIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
 		BAA0C2352C523A2C00AC467F /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		BAA0C2372C523ACD00AC467F /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
@@ -59,6 +65,9 @@
 		BA0A9CEB2C5236510046E4A3 = {
 			isa = PBXGroup;
 			children = (
+				BA4AA1FE2C524FD1002800C4 /* LICENSE */,
+				BA4AA1FC2C524FD1002800C4 /* README_ja.md */,
+				BA4AA1FD2C524FD1002800C4 /* README.md */,
 				BA0A9CF62C5236510046E4A3 /* TrainingMLImageClassifier */,
 				BA0A9CF52C5236510046E4A3 /* Products */,
 			);
@@ -179,6 +188,9 @@
 			files = (
 				BA0A9CFF2C5236520046E4A3 /* Preview Assets.xcassets in Resources */,
 				BA0A9CFC2C5236520046E4A3 /* Assets.xcassets in Resources */,
+				BA4AA2002C524FD1002800C4 /* README.md in Resources */,
+				BA4AA1FF2C524FD1002800C4 /* README_ja.md in Resources */,
+				BA4AA2012C524FD1002800C4 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
