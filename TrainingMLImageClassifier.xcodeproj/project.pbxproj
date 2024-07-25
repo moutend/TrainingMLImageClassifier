@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BA0A9CF82C5236510046E4A3 /* TrainingMLImageClassifierApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A9CF72C5236510046E4A3 /* TrainingMLImageClassifierApp.swift */; };
-		BA0A9CFA2C5236510046E4A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A9CF92C5236510046E4A3 /* ContentView.swift */; };
 		BA0A9CFC2C5236520046E4A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA0A9CFB2C5236520046E4A3 /* Assets.xcassets */; };
 		BA0A9CFF2C5236520046E4A3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA0A9CFE2C5236520046E4A3 /* Preview Assets.xcassets */; };
 		BAA0C2342C5239B600AC467F /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2332C5239B600AC467F /* CIImageExtension.swift */; };
@@ -18,12 +17,17 @@
 		BAA0C23C2C523B8A00AC467F /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C23B2C523B8A00AC467F /* ImageGenerator.swift */; };
 		BAA0C23E2C523BE700AC467F /* ImageTrainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C23D2C523BE700AC467F /* ImageTrainer.swift */; };
 		BAA0C2402C523C2100AC467F /* MovieFileRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C23F2C523C2100AC467F /* MovieFileRecorder.swift */; };
+		BAA0C2432C523D6600AC467F /* ClassifyingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2422C523D6600AC467F /* ClassifyingView.swift */; };
+		BAA0C2452C523DBC00AC467F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2442C523DBC00AC467F /* ContentView.swift */; };
+		BAA0C2472C523DEE00AC467F /* MovieFileRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2462C523DEE00AC467F /* MovieFileRecordingView.swift */; };
+		BAA0C2492C523E2800AC467F /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C2482C523E2800AC467F /* PreviewView.swift */; };
+		BAA0C24B2C523E6A00AC467F /* TrainingDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C24A2C523E6A00AC467F /* TrainingDataView.swift */; };
+		BAA0C24D2C523EB700AC467F /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0C24C2C523EB700AC467F /* TrainingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BA0A9CF42C5236510046E4A3 /* TrainingMLImageClassifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainingMLImageClassifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0A9CF72C5236510046E4A3 /* TrainingMLImageClassifierApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingMLImageClassifierApp.swift; sourceTree = "<group>"; };
-		BA0A9CF92C5236510046E4A3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BA0A9CFB2C5236520046E4A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA0A9CFE2C5236520046E4A3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BAA0C2332C5239B600AC467F /* CIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
@@ -33,6 +37,12 @@
 		BAA0C23B2C523B8A00AC467F /* ImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
 		BAA0C23D2C523BE700AC467F /* ImageTrainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTrainer.swift; sourceTree = "<group>"; };
 		BAA0C23F2C523C2100AC467F /* MovieFileRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFileRecorder.swift; sourceTree = "<group>"; };
+		BAA0C2422C523D6600AC467F /* ClassifyingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifyingView.swift; sourceTree = "<group>"; };
+		BAA0C2442C523DBC00AC467F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BAA0C2462C523DEE00AC467F /* MovieFileRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFileRecordingView.swift; sourceTree = "<group>"; };
+		BAA0C2482C523E2800AC467F /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		BAA0C24A2C523E6A00AC467F /* TrainingDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingDataView.swift; sourceTree = "<group>"; };
+		BAA0C24C2C523EB700AC467F /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				BA0A9CF72C5236510046E4A3 /* TrainingMLImageClassifierApp.swift */,
-				BA0A9CF92C5236510046E4A3 /* ContentView.swift */,
+				BAA0C2412C523D2300AC467F /* Views */,
 				BAA0C2322C52397600AC467F /* Logic */,
 				BA0A9CFB2C5236520046E4A3 /* Assets.xcassets */,
 				BA0A9CFD2C5236520046E4A3 /* Preview Content */,
@@ -94,6 +104,19 @@
 				BAA0C23F2C523C2100AC467F /* MovieFileRecorder.swift */,
 			);
 			path = Logic;
+			sourceTree = "<group>";
+		};
+		BAA0C2412C523D2300AC467F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BAA0C2422C523D6600AC467F /* ClassifyingView.swift */,
+				BAA0C2442C523DBC00AC467F /* ContentView.swift */,
+				BAA0C2462C523DEE00AC467F /* MovieFileRecordingView.swift */,
+				BAA0C2482C523E2800AC467F /* PreviewView.swift */,
+				BAA0C24A2C523E6A00AC467F /* TrainingDataView.swift */,
+				BAA0C24C2C523EB700AC467F /* TrainingView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,14 +189,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA0A9CFA2C5236510046E4A3 /* ContentView.swift in Sources */,
+				BAA0C2492C523E2800AC467F /* PreviewView.swift in Sources */,
+				BAA0C2452C523DBC00AC467F /* ContentView.swift in Sources */,
+				BAA0C2432C523D6600AC467F /* ClassifyingView.swift in Sources */,
+				BAA0C2472C523DEE00AC467F /* MovieFileRecordingView.swift in Sources */,
 				BA0A9CF82C5236510046E4A3 /* TrainingMLImageClassifierApp.swift in Sources */,
 				BAA0C2342C5239B600AC467F /* CIImageExtension.swift in Sources */,
+				BAA0C24D2C523EB700AC467F /* TrainingView.swift in Sources */,
 				BAA0C2402C523C2100AC467F /* MovieFileRecorder.swift in Sources */,
 				BAA0C23C2C523B8A00AC467F /* ImageGenerator.swift in Sources */,
 				BAA0C2362C523A2C00AC467F /* AppConstants.swift in Sources */,
 				BAA0C23E2C523BE700AC467F /* ImageTrainer.swift in Sources */,
 				BAA0C23A2C523B4100AC467F /* ImageClassifier.swift in Sources */,
+				BAA0C24B2C523E6A00AC467F /* TrainingDataView.swift in Sources */,
 				BAA0C2382C523ACD00AC467F /* CameraManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
