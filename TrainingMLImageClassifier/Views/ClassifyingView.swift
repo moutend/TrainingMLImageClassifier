@@ -17,7 +17,7 @@ struct ClassifyingView: View {
   @EnvironmentObject var appConstants: AppConstants
 
   @State var predictions: [ImageClassifier.Prediction] = []
-  @State var compilationTime: CFTimeInterval = 0.0
+  @State var compilationTime: TimeInterval = 0.0
   @State var modelState: ModelState = .unavailable
   @State var isPreviewReady = false
 
@@ -48,7 +48,7 @@ struct ClassifyingView: View {
         .disabled(self.modelState == .compiling)
       }
       if self.modelState == .compiled {
-        Text("Compilation Time - \(self.compilationTime, specifier: "%.0f") ms")
+        Text("Compilation Time - \(self.compilationTime * 1000.0, specifier: "%.0f") ms")
           .padding()
         Button(action: {
           self.modelState = .classifying

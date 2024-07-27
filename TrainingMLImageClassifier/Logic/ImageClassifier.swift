@@ -10,14 +10,14 @@ class ImageClassifier {
     let confidence: Float
   }
 
-  var ready: AnyPublisher<CFTimeInterval, Never> {
+  var ready: AnyPublisher<TimeInterval, Never> {
     self.readySubject.eraseToAnyPublisher()
   }
   var prediction: AnyPublisher<[Prediction], Never> {
     self.predictionSubject.eraseToAnyPublisher()
   }
 
-  private let readySubject = PassthroughSubject<CFTimeInterval, Never>()
+  private let readySubject = PassthroughSubject<TimeInterval, Never>()
   private let predictionSubject = PassthroughSubject<[Prediction], Never>()
 
   private var model: VNCoreMLModel? = nil
@@ -66,7 +66,7 @@ class ImageClassifier {
   }
   func setup(at mlmodelFileURL: URL) {
     Task {
-      let startTime = CFAbsoluteTimeGetCurrent()
+      let startedAt = Date()
 
       do {
         let compiledModelURL = try await MLModel.compileModel(at: mlmodelFileURL)
@@ -77,13 +77,12 @@ class ImageClassifier {
           fatalError("Failed to create a VNCoreMLModel instance.")
         }
 
-        let endTime = CFAbsoluteTimeGetCurrent()
-        let duration = (endTime - startTime) * 1000.0
+        let compilationTime = Date().timeIntervalSince(startedAt)
 
         self.model = model
 
         DispatchQueue.main.async {
-          self.readySubject.send(duration)
+          self.readySubject.send(compilationTime)
         }
       } catch {
         fatalError("Failed to load the .mlmodel file: \(error)")
