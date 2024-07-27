@@ -5,9 +5,8 @@ import UIKit
 struct ClassifyingView: View {
   enum ModelState {
     case unavailable
-    case ready
     case compiling
-    case compiled
+    case ready
     case classifying
   }
 
@@ -27,29 +26,22 @@ struct ClassifyingView: View {
         PreviewView(session: captureSession)
           .frame(width: UIScreen.main.bounds.size.width)
       }
-      if self.modelState == .unavailable {
-        Text("Please train the image classifier model at first.")
+      switch self.modelState {
+      case .unavailable:
+        Text("Please go back and train the model.")
           .padding()
-      }
-      if self.modelState == .ready || self.modelState == .compiling {
-        Button(action: {
-          self.modelState = .compiling
-          self.imageClassifier.setup(at: self.appConstants.mlmodelFile)
-        }) {
-          Text(
-            "\(self.modelState == .compiling ? "Compiling..." : "Compile Image Classifier Model")"
-          )
+      case .compiling:
+        Text("Compiling the model, please one moment.")
           .padding()
-          .foregroundColor(.white)
-          .background(Color.indigo)
+      case .ready:
+        Text("Setup Completed!")
           .padding()
+
+        if self.compilationTime > 0.0 {
+          Text("Compilation Time: \(self.compilationTime * 1000.0, specifier: "%.0f") ms")
+            .padding()
         }
-        .padding()
-        .disabled(self.modelState == .compiling)
-      }
-      if self.modelState == .compiled {
-        Text("Compilation Time - \(self.compilationTime * 1000.0, specifier: "%.0f") ms")
-          .padding()
+
         Button(action: {
           self.modelState = .classifying
           self.cameraManager.delegate = self.imageClassifier
@@ -60,10 +52,10 @@ struct ClassifyingView: View {
             .background(Color.indigo)
         }
         .padding()
-      }
-      if self.modelState == .classifying {
+      case .classifying:
         Text("Classification Result")
           .padding()
+
         if let prediction = self.predictions.first {
           Text("\(prediction.label) - \(prediction.confidence, specifier: "%.0f")%")
             .padding()
@@ -72,37 +64,40 @@ struct ClassifyingView: View {
     }
     .onAppear {
       DispatchQueue.global(qos: .default).async {
-        do {
-          try self.cameraManager.setup()
-        } catch {
-          fatalError("Failed to setup camera preview: \(error)")
-        }
-
-        self.cameraManager.startPreviewing()
-
-        let isModelAvailable = FileManager.default.fileExists(
-          atPath: self.appConstants.mlmodelFile.path)
-
-        DispatchQueue.main.async {
-          withAnimation {
-            self.isPreviewReady = true
-
-            if isModelAvailable {
-              self.modelState = .ready
-            }
-          }
-        }
+        self.setupCamera()
+      }
+      if FileManager.default.fileExists(atPath: self.appConstants.mlmodelFile.path) {
+        self.modelState = .compiling
+        self.imageClassifier.compile(at: self.appConstants.mlmodelFile)
       }
     }
     .onDisappear {
       self.cameraManager.cleanup()
     }
-    .onReceive(self.imageClassifier.ready) { compilationTime in
-      self.compilationTime = compilationTime
-      self.modelState = .compiled
+    .onReceive(self.imageClassifier.ready) { compilationResult in
+      if !compilationResult.compilationSkipped {
+        self.compilationTime = compilationResult.compilationTime
+      }
+
+      self.modelState = .ready
     }
     .onReceive(self.imageClassifier.prediction) { predictions in
       self.predictions = predictions
+    }
+  }
+  private func setupCamera() {
+    do {
+      try self.cameraManager.setup()
+    } catch {
+      fatalError("Failed to setup camera preview: \(error)")
+    }
+
+    self.cameraManager.startPreviewing()
+
+    DispatchQueue.main.async {
+      withAnimation {
+        self.isPreviewReady = true
+      }
     }
   }
 }

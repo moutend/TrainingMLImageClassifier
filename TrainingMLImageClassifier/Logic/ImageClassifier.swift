@@ -3,6 +3,12 @@ import UIKit
 import Vision
 
 class ImageClassifier {
+  struct CompilationResult {
+    let compilationTime: TimeInterval
+    let compilationSkipped: Bool
+    let compiledModelURL: URL
+  }
+
   struct Prediction: Identifiable {
     let id = UUID()
 
@@ -10,14 +16,14 @@ class ImageClassifier {
     let confidence: Float
   }
 
-  var ready: AnyPublisher<TimeInterval, Never> {
+  var ready: AnyPublisher<CompilationResult, Never> {
     self.readySubject.eraseToAnyPublisher()
   }
   var prediction: AnyPublisher<[Prediction], Never> {
     self.predictionSubject.eraseToAnyPublisher()
   }
 
-  private let readySubject = PassthroughSubject<TimeInterval, Never>()
+  private let readySubject = PassthroughSubject<CompilationResult, Never>()
   private let predictionSubject = PassthroughSubject<[Prediction], Never>()
 
   private var model: VNCoreMLModel? = nil
@@ -64,28 +70,51 @@ class ImageClassifier {
       )
     }
   }
-  func setup(at mlmodelFileURL: URL) {
-    Task {
-      let startedAt = Date()
+  func compile(at mlmodelFileURL: URL) {
+    let mlmodelcURL =
+      mlmodelFileURL
+      .deletingPathExtension()
+      .appendingPathExtension("mlmodelc")
 
+    Task {
       do {
-        let compiledModelURL = try await MLModel.compileModel(at: mlmodelFileURL)
+        let compiledModelURL: URL
+        let compilationTime: TimeInterval
+        let compilationSkipped: Bool
+
+        if FileManager.default.fileExists(atPath: mlmodelcURL.path) {
+          compiledModelURL = mlmodelcURL
+          compilationTime = 0.0
+          compilationSkipped = true
+        } else {
+          let startedAt = Date()
+
+          compiledModelURL = try await MLModel.compileModel(at: mlmodelFileURL)
+          compilationTime = Date().timeIntervalSince(startedAt)
+          compilationSkipped = false
+
+          try FileManager.default.copyItem(
+            at: compiledModelURL,
+            to: mlmodelcURL
+          )
+        }
+
         let mlmodel = try await MLModel.load(
           contentsOf: compiledModelURL, configuration: MLModelConfiguration())
 
-        guard let model = try? VNCoreMLModel(for: mlmodel) else {
-          fatalError("Failed to create a VNCoreMLModel instance.")
-        }
-
-        let compilationTime = Date().timeIntervalSince(startedAt)
-
-        self.model = model
+        self.model = try VNCoreMLModel(for: mlmodel)
 
         DispatchQueue.main.async {
-          self.readySubject.send(compilationTime)
+          self.readySubject.send(
+            CompilationResult(
+              compilationTime: compilationTime,
+              compilationSkipped: compilationSkipped,
+              compiledModelURL: compiledModelURL
+            )
+          )
         }
       } catch {
-        fatalError("Failed to load the .mlmodel file: \(error)")
+        fatalError("Failed to compile the model: \(error)")
       }
     }
   }
