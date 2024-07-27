@@ -19,6 +19,8 @@ struct TrainingView: View {
   @State var totalImagesCount = 0
   @State var imageGenerationProgress: Double = 0.0
 
+  @State var elapsedTime: TimeInterval = 0.0
+  @State var modelSize: Int = 0
   @State var trainingAccuracy: Double = 0.0
   @State var validationAccuracy: Double = 0.0
 
@@ -55,6 +57,10 @@ struct TrainingView: View {
           .bold()
           .padding()
         VStack {
+          Text("Elapsed Time: \(self.elapsedTime * 1000, specifier: "%.0f") ms")
+            .padding()
+          Text("Model Size: \(self.modelSize / 1024) KB")
+            .padding()
           Text("Training Accuracy: \(self.trainingAccuracy, specifier: "%.0f")%")
             .padding()
           Text("Validation Accuracy: \(self.validationAccuracy, specifier: "%.0f")%")
@@ -89,6 +95,8 @@ struct TrainingView: View {
       }
     }
     .onReceive(self.imageTrainer.result) { result in
+      self.elapsedTime = result.elapsedTime
+      self.modelSize = result.modelSize
       self.trainingAccuracy = result.trainingAccuracy
       self.validationAccuracy = result.validationAccuracy
       self.trainingState = .finished
