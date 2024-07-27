@@ -4,6 +4,8 @@ import Foundation
 
 class ImageTrainer: NSObject {
   struct TrainingResult {
+    let elapsedTime: TimeInterval
+    let modelSize: Int
     let trainingAccuracy: Double
     let validationAccuracy: Double
   }
@@ -16,6 +18,8 @@ class ImageTrainer: NSObject {
 
   private var job: MLJob<MLImageClassifier>? = nil
   private var resultCancellable: AnyCancellable? = nil
+  private var trainingStartedDate: Date? = nil
+
   override init() {
     super.init()
   }
@@ -36,6 +40,8 @@ class ImageTrainer: NSObject {
         classifier: .logisticRegressor
       )
     )
+
+    self.trainingStartedDate = Date()
 
     do {
       self.job = try MLImageClassifier.train(
@@ -61,19 +67,31 @@ class ImageTrainer: NSObject {
         }
       },
       receiveValue: { [weak self] classifier in
+        guard let trainingStartedDate = self?.trainingStartedDate else {
+          fatalError("Failed to get the date training started.")
+        }
+
         let metadata = MLModelMetadata(
           author: "Yoshiyuki Koyanagi",
           shortDescription: "Classifies north, east, west and south from the given images",
           license: "MIT"
         )
 
+        let modelSize: Int
+
         do {
           try classifier.write(to: mlmodelFileURL, metadata: metadata)
+
+          let attributes = try FileManager.default.attributesOfItem(atPath: mlmodelFileURL.path)
+
+          modelSize = attributes[.size] as? Int ?? 0
         } catch {
           fatalError("Failed to save the image classifier model: \(error)")
         }
 
         let result = TrainingResult(
+          elapsedTime: Date().timeIntervalSince(trainingStartedDate),
+          modelSize: modelSize,
           trainingAccuracy: (1.0 - classifier.trainingMetrics.classificationError) * 100,
           validationAccuracy: (1.0 - classifier.validationMetrics.classificationError) * 100
         )
