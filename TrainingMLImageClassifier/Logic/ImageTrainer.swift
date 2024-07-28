@@ -10,6 +10,8 @@ class ImageTrainer: NSObject {
     let validationAccuracy: Double
   }
 
+  let scenePrintRevisions: [Int]
+
   var result: AnyPublisher<TrainingResult, Never> {
     self.resultSubject.eraseToAnyPublisher()
   }
@@ -21,6 +23,12 @@ class ImageTrainer: NSObject {
   private var trainingStartedDate: Date? = nil
 
   override init() {
+    if #available(iOS 17.0, *) {
+      self.scenePrintRevisions = [1, 2]
+    } else {
+      self.scenePrintRevisions = [1]
+    }
+
     super.init()
   }
   func cancel() {
@@ -30,13 +38,13 @@ class ImageTrainer: NSObject {
 
     job.cancel()
   }
-  func train(from trainingDataDirectory: URL, to mlmodelFileURL: URL) {
+  func train(from trainingDataDirectory: URL, to mlmodelFileURL: URL, scenePrintRevision: Int = 1) {
     let parameters = MLImageClassifier.ModelParameters(
       validation: .split(strategy: .automatic),
       maxIterations: 50,
       augmentation: [],
       algorithm: .transferLearning(
-        featureExtractor: .scenePrint(revision: nil),
+        featureExtractor: .scenePrint(revision: scenePrintRevision),
         classifier: .logisticRegressor
       )
     )

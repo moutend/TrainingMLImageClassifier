@@ -15,6 +15,8 @@ struct TrainingView: View {
 
   @State var trainingState: TrainingState = .ready
 
+  @State var scenePrintRevision = 1
+
   @State var imagesCount = 0
   @State var totalImagesCount = 0
   @State var imageGenerationProgress: Double = 0.0
@@ -30,6 +32,23 @@ struct TrainingView: View {
         .font(.title)
         .padding()
       if self.trainingState == .ready {
+        Text("Choose scene print: ")
+          .padding()
+        HStack {
+          ForEach(self.imageTrainer.scenePrintRevisions, id: \.self) { revision in
+            Button(action: {
+              self.scenePrintRevision = revision
+            }) {
+              Text("Revision \(revision)")
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.indigo)
+            }
+            .opacity(self.scenePrintRevision == revision ? 1.0 : 0.75)
+            .accessibilityAddTraits(self.scenePrintRevision == revision ? .isSelected : .init())
+          }
+        }
+        .padding()
         Button(action: {
           self.start()
         }) {
@@ -89,7 +108,8 @@ struct TrainingView: View {
 
           self.imageTrainer.train(
             from: self.appConstants.trainingDataDirectory,
-            to: self.appConstants.mlmodelFile
+            to: self.appConstants.mlmodelFile,
+            scenePrintRevision: self.scenePrintRevision
           )
         }
       }
