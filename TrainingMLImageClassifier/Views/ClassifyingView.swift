@@ -59,6 +59,8 @@ struct ClassifyingView: View {
         if let prediction = self.predictions.first {
           Text("\(prediction.label) - \(prediction.confidence, specifier: "%.0f")%")
             .padding()
+          Text("Elapsed Time: \(prediction.elapsedTime * 1000.0, specifier: "%.0f") ms")
+            .padding()
         }
       }
     }
