@@ -12,6 +12,7 @@ class ImageClassifier {
   struct Prediction: Identifiable {
     let id = UUID()
 
+    let elapsedTime: TimeInterval
     let label: String
     let confidence: Float
   }
@@ -26,6 +27,7 @@ class ImageClassifier {
   private let readySubject = PassthroughSubject<CompilationResult, Never>()
   private let predictionSubject = PassthroughSubject<[Prediction], Never>()
 
+  private var requestedAt: Date = .now
   private var model: VNCoreMLModel? = nil
 
   private func createImageClassificationRequest() -> VNImageBasedRequest {
@@ -63,8 +65,11 @@ class ImageClassifier {
       return
     }
 
+    let elapsedTime = Date().timeIntervalSince(self.requestedAt)
+
     predictions = observations.map { observation in
       Prediction(
+        elapsedTime: elapsedTime,
         label: observation.identifier,
         confidence: observation.confidence * 100.0
       )
@@ -122,6 +127,8 @@ class ImageClassifier {
     let request = self.createImageClassificationRequest()
     let requests: [VNRequest] = [request]
     let handler = VNImageRequestHandler(ciImage: ciImage)
+
+    self.requestedAt = Date()
 
     try handler.perform(requests)
   }
