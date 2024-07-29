@@ -1,5 +1,5 @@
 import Combine
-import UIKit
+import CoreImage
 import Vision
 
 class ImageClassifier {
